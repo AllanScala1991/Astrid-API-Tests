@@ -23,8 +23,8 @@ public class Account {
 
 	@BeforeClass
 	public static void setup()throws IOException{
-		baseURI = "http://localhost";
-		port = 8000;
+		baseURI = new Utils().getBaseUrl();
+		port = new Utils().getPort();
 		faker = new Faker();
 		fakeName = faker.name().firstName();
 		fakeEmail = fakeName + "@mail.com";
