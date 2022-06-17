@@ -90,7 +90,6 @@ public class Board {
             .body("data.isFavorited", hasItem(false))
             .body("data.isArchived", hasItem(false))
             .body("data.userId", is(notNullValue()))
-            .extract().path("data.id")
         ;
     }
 

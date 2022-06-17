@@ -65,4 +65,42 @@ public class Utils {
     public Integer getPort() {
         return this.port;
     }
+
+    public String getBoardID() throws IOException {
+        Object userID = getUserID(this.email, this.password);
+        String token = getUserToken(this.email, this.password);
+
+        OkHttpClient client = new OkHttpClient();
+
+		RequestBody body = new FormBody.Builder()
+        .add("name", "Automation Board")
+        .add("userId", userID.toString())
+        .build();
+		
+        Request createBoard = new Request.Builder()
+        .url("http://localhost:8000/create/board")
+        .addHeader("User-Agent", "OkHttp Automation")
+        .addHeader("Authorization", "Bearer " + token)
+        .post(body)
+        .build();
+
+        client.newCall(createBoard).execute();
+
+        Request getBoards = new Request.Builder()
+        .url("http://localhost:8000/find/board/" + userID.toString())
+        .addHeader("User-Agent", "OkHttp Automation")
+        .addHeader("Authorization", "Bearer " + token)
+        .get()
+        .build();
+
+        Response boardResponse = client.newCall(getBoards).execute();
+
+        String board = boardResponse.body().string();
+
+        String boardId = board.split("\\,")[1]
+        .split("id")[1]
+        .split(":")[1]
+        .replaceAll("^\"|\"$", "");
+        return boardId;
+    }
 }
