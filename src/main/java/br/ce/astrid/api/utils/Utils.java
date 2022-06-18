@@ -103,4 +103,42 @@ public class Utils {
         .replaceAll("^\"|\"$", "");
         return boardId;
     }
+
+    public String getStageID() throws IOException {
+        String boardID = this.getBoardID();
+        String token = getUserToken(email, password);
+
+        OkHttpClient client = new OkHttpClient();
+
+		RequestBody stageBody = new FormBody.Builder()
+        .add("name", "Automation Stage")
+        .add("boardId", boardID)
+        .build();
+		
+        Request createStage = new Request.Builder()
+        .url("http://localhost:8000/create/stage")
+        .addHeader("Authorization", "Bearer " + token)
+        .addHeader("User-Agent", "OkHttp Automation")
+        .post(stageBody)
+        .build();
+
+        client.newCall(createStage).execute();
+
+        Request getStages = new Request.Builder()
+        .url("http://localhost:8000/find/stage/" +  boardID)
+        .addHeader("User-Agent", "OkHttp Automation")
+        .addHeader("Authorization", "Bearer " + token)
+        .get()
+        .build();
+
+        Response stages = client.newCall(getStages).execute();
+
+        String stage = stages.body().string();
+        String stageId = stage.split("\\,")[1]
+        .split("id")[1]
+        .split(":")[1]
+        .replaceAll("^\"|\"$", "");
+        return stageId;
+
+    }
 }
