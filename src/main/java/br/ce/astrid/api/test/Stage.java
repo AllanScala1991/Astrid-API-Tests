@@ -1,6 +1,8 @@
 package br.ce.astrid.api.test;
 
 import static org.hamcrest.Matchers.*;
+
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -9,6 +11,7 @@ import org.junit.runners.MethodSorters;
 import br.ce.astrid.api.utils.Utils;
 import static io.restassured.RestAssured.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +21,7 @@ public class Stage {
     private static Object token;
     private static String boardId;
     private static String stageId;
+    private static Object userID;
     
     @BeforeClass
     public static void setup() throws IOException {
@@ -26,6 +30,7 @@ public class Stage {
         stageName = "Automation Stage";
         token = Utils.getUserToken(new Utils().getEmail(), new Utils().getPassword());
         boardId = new Utils().getBoardID();
+        userID = Utils.getUserID(new Utils().getEmail(), new Utils().getPassword());
     }
 
     @Test
@@ -214,5 +219,27 @@ public class Stage {
             .body("status", is(true))
             .body("message", is("Stage deletado com sucesso."))
         ; 
+    }
+
+    @AfterClass
+    public static void clean() {
+        ArrayList<String> boardId = 
+        given()
+            .header("Authorization", "Bearer " + token)
+        .when()
+            .get("/find/board/"+userID)
+        .then()
+            .body("status", is(true))
+            .body("data.id", is(notNullValue()))
+            .extract().path("data.id");
+
+        given()
+            .header("Authorization", "Bearer " + token)
+        .when()
+            .delete("/delete/board/"+ boardId.get(0).toString())
+        .then()
+            .body("status", is(true))
+            .body("message", is("Board deletado com sucesso."))
+        ;
     }
 }
