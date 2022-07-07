@@ -56,7 +56,7 @@ public class Login {
             .post("/login")
         .then()
             .body("status", is(false))
-            .body("message", is("Usuário ou Senha incorretos."))
+            .body("message", is("Usuário e ou Senha incorretos."))
         ;
     }
 

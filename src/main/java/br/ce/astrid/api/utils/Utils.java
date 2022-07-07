@@ -46,7 +46,8 @@ public class Utils {
         String[] splitToken = jwt.split("token");
         String[] splitPunctuation = splitToken[1].split(":");
         String[] splitKeys = splitPunctuation[1].split("}");
-        String token = splitKeys[0].replaceAll("^\"|\"$", "");// Remove todas as "" do token
+        String[] separetedToken = splitKeys[0].split(",");
+        String token = separetedToken[0].replaceAll("^\"|\"$", "");// Remove todas as "" do token
         return token;
     } 
 

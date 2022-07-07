@@ -48,7 +48,7 @@ public class Task {
             .post("/create/task")
         .then()
             .body("status", is(true))
-            .body("message", is("Task criada com sucesso."))
+            .body("message", is("Tarefa criada com sucesso."))
         ;
     }
 
@@ -173,7 +173,7 @@ public class Task {
             .put("/update/task")
         .then()
             .body("status", is(true))
-            .body("message", is("Task atualizada com sucesso."))
+            .body("message", is("Tarefa atualizada com sucesso."))
         ;
     }
 
@@ -251,7 +251,7 @@ public class Task {
             .delete("/delete/task/" + taskId)
         .then()
             .body("status", is(true))
-            .body("message", is("Task deletada com sucesso."))
+            .body("message", is("Tarefa deletada com sucesso."))
         ;
     }
 
@@ -265,7 +265,7 @@ public class Task {
             .delete("/delete/task/stage/" + stageId)
         .then()
             .body("status", is(true))
-            .body("message", is("Task deletada com sucesso."))
+            .body("message", is("Tarefa deletada com sucesso."))
         ;
     }
 
@@ -277,7 +277,7 @@ public class Task {
             .delete("/delete/stage/" + stageId)
         .then()
             .body("status", is(true))
-            .body("message", is("Stage deletado com sucesso."))
+            .body("message", is("Quadro deletado com sucesso."))
         ; 
 
         ArrayList<String> boardId = 

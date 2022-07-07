@@ -47,7 +47,7 @@ public class Stage {
             .post("/create/stage")
         .then()
             .body("status", is(true))
-            .body("message", is("Stage criado com sucesso."))
+            .body("message", is("Quadro criado com sucesso."))
         ; 
     }
     
@@ -137,7 +137,7 @@ public class Stage {
             .put("/update/stage")
         .then()
             .body("status", is(true))
-            .body("message", is("Stage atualizado com sucesso."))
+            .body("message", is("Quadro atualizado com sucesso."))
         ; 
     }
 
@@ -205,7 +205,7 @@ public class Stage {
             .delete("/delete/stage/" + stageId)
         .then()
             .body("status", is(true))
-            .body("message", is("Stage deletado com sucesso."))
+            .body("message", is("Quadro deletado com sucesso."))
         ; 
     }
 
@@ -217,7 +217,7 @@ public class Stage {
             .delete("/delete/stage/board/" + boardId)
         .then()
             .body("status", is(true))
-            .body("message", is("Stage deletado com sucesso."))
+            .body("message", is("Quadro deletado com sucesso."))
         ; 
     }
 
